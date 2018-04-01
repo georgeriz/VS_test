@@ -8,6 +8,9 @@ class TestA(unittest.TestCase):
 
     def test_foo_zero(self):
         self.assertEquals(0, foo(0))
+        
+    def test_foo_negative(self):
+        self.assertEquals(-10, foo(-5))
 
 if __name__ == "__main__":
     unittest.main()
