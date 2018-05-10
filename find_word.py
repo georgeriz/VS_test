@@ -1,3 +1,5 @@
+import copy
+
 def get_next(ip, size_i, size_j):
     alist = []
     if ip[0] - 1 >= 0:
@@ -39,16 +41,17 @@ def foo(ip, board, word):
 
 def find_word(board, word):
     print "Now starting for:", word
-    for i, line in enumerate(board):
+    tmp_board = copy.deepcopy(board)
+    for i, line in enumerate(tmp_board):
         for j, char in enumerate(line):
             if char == word[0]:
                 if len(word) == 1:
                     return True
                 tmp = char
-                board[i][j] = '-'
-                if foo((i,j), board, word[1:]):
+                tmp_board[i][j] = '-'
+                if foo((i,j), tmp_board, word[1:]):
                     return True
-                board[i][j] = tmp
+                tmp_board[i][j] = tmp
     return False
 
 
