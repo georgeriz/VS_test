@@ -22,10 +22,10 @@ def get_next(ip, size_i, size_j):
 
 def foo(ip, board, word):
     for letter in word:
-        print "looking for:" , letter
-        print board
+        #print "looking for:" , letter
+        #print board
         for pp in get_next(ip, len(board), len(board[0])):
-            print pp
+            #print pp
             if board[pp[0]][pp[1]] == letter:
                 if len(word) == 1:
                     return True
@@ -35,12 +35,12 @@ def foo(ip, board, word):
                     return True
                 board[pp[0]][pp[1]] = tmp
         else:
-            print "did not find:", letter
+            #print "did not find:", letter
             return False
 
 
 def find_word(board, word):
-    print "Now starting for:", word
+    #print "Now starting for:", word
     tmp_board = copy.deepcopy(board)
     for i, line in enumerate(tmp_board):
         for j, char in enumerate(line):
