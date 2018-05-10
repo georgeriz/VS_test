@@ -21,26 +21,34 @@ def get_next(ip, size_i, size_j):
 def foo(ip, board, word):
     for letter in word:
         print "looking for:" , letter
+        print board
         for pp in get_next(ip, len(board), len(board[0])):
             print pp
             if board[pp[0]][pp[1]] == letter:
                 if len(word) == 1:
                     return True
+                tmp = board[pp[0]][pp[1]]
+                board[pp[0]][pp[1]] = '-'
                 if foo(pp, board, word[1:]):
                     return True
+                board[pp[0]][pp[1]] = tmp
         else:
             print "did not find:", letter
             return False
 
 
 def find_word(board, word):
+    print "Now starting for:", word
     for i, line in enumerate(board):
         for j, char in enumerate(line):
             if char == word[0]:
                 if len(word) == 1:
                     return True
+                tmp = char
+                board[i][j] = '-'
                 if foo((i,j), board, word[1:]):
                     return True
+                board[i][j] = tmp
     return False
 
 
@@ -61,5 +69,5 @@ assert( find_word(testBoard, "EAR"             ))
 assert( not find_word(testBoard, "EARS"            ))
 assert( find_word(testBoard, "BAILER"          ))
 assert( find_word(testBoard, "RSCAREIOYBAILNEA"))
-##assert( not find_word(testBoard, "CEREAL"          ))
+assert( not find_word(testBoard, "CEREAL"          ))
 assert( not find_word(testBoard, "ROBES"           ))
