@@ -1,0 +1,2 @@
+def duration(seconds):
+	pass
