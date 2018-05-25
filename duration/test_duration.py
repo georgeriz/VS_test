@@ -9,10 +9,13 @@ class TestDuration(unittest.TestCase):
 		self.assertEquals(duration(1), "1 second")
 
 	def test_minutes(self):
-		self.assertEquals(duration(122),"2 minutes and 2 seconds")
+		self.assertEquals(duration(120),"2 minutes")
 
-	def test_one_minute(self):
-		self.assertEquals(duration(60), "1 minute")
+	def test_one_hour(self):
+		self.assertEquals(duration(3600), "1 hour")
+
+	def test_hour_minute_seconds(self):
+		self.assertEquals(duration(3662), "1 hour, 1 minute and 2 seconds")
 		
 		
 if __name__ == "__main__":
