@@ -13,8 +13,5 @@ def duration(seconds):
 			t.append(str(j) + " " + q[i])
 			if j != 1:
 				t[-1] += "s"
-	f = ", ".join(t[:-1])
-	if f:
-		return f + " and " + t[-1]
-	return t[-1]
+	return ", ".join(t[:-1]) + " and " + t[-1] if len(t) > 1 else t[0]
 	
