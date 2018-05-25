@@ -4,14 +4,8 @@ def duration(seconds):
 	p, h = divmod(p, 60)
 	p, d = divmod(p, 24)
 	y = p%365
-	res = [y,d,h,m,s]
-	q = ["year", "day", "hour", "minute", "second"]
-	
-	t = []
-	for i,j in enumerate(res):
-		if j != 0:
-			t.append(str(j) + " " + q[i])
-			if j != 1:
-				t[-1] += "s"
+	t = ["year", "day", "hour", "minute", "second"]
+	t = [str(j) + " " + t[i] for i,j in enumerate((y,d,h,m,s)) if j != 0]
+	t = [i + "s" for i in t if not i.startswith("1")]
 	return ", ".join(t[:-1]) + " and " + t[-1] if len(t) > 1 else t[0]
 	
