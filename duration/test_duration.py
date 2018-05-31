@@ -22,6 +22,9 @@ class TestDuration(unittest.TestCase):
 
 	def test_years(self):
 		self.assertEquals(duration(101956166), "3 years, 85 days, 1 hour, 9 minutes and 26 seconds")
+
+	def test_start_with_one(self):
+		self.assertEquals(duration(600), "10 minutes")
 		
 		
 if __name__ == "__main__":
