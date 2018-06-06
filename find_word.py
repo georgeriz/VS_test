@@ -1,24 +1,8 @@
 import copy
 
 def get_next(ip, size_i, size_j):
-    alist = []
-    if ip[0] - 1 >= 0:
-        alist.append((ip[0] - 1, ip[1]))
-        if ip[1] - 1 >= 0:
-            alist.append((ip[0] - 1, ip[1] - 1))
-        if ip[1] + 1 <= size_j - 1:
-            alist.append((ip[0] - 1, ip[1] + 1))
-    if ip[0] + 1 <= size_i - 1:
-        alist.append((ip[0] + 1, ip[1]))
-        if ip[1] - 1 >= 0:
-            alist.append((ip[0] + 1, ip[1] - 1))
-        if ip[1] + 1 <= size_j - 1:
-            alist.append((ip[0] + 1, ip[1] + 1))
-    if ip[1] - 1 >= 0:
-        alist.append((ip[0], ip[1] - 1))
-    if ip[1] + 1 <= size_i - 1:
-        alist.append((ip[0], ip[1] + 1))
-    return alist
+    options = [(ip[0]+i,ip[1]+j) for i in [-1,0,1] for j in [-1,0,1]]
+    return filter(lambda p: p[0]!=-1 and p[1]!=-1 and p[0]!=size_i and p[1]!=size_j, options)
 
 def foo(ip, board, word):
     for letter in word:
