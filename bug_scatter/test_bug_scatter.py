@@ -28,17 +28,17 @@ class TestBugScatter(unittest.TestCase):
 
     def test_random(self):
         room = ["6--------9--------3--------------+",
-        "|            L   R            D  |",
-        "|                                7",
-        "|                     LL         |",
-        "|                  D             |",
-        "|                      D   R     |",
-        "2 UL     U                  RD   4",
-        "|        D                       |",
-        "|     L        D                 |",
-        "|                   R       L    |",
-        "|                                |",
-        "5----------------10-----------8--+"]
+                "|            L   R            D  |",
+                "|                                7",
+                "|                     LL         |",
+                "|                  D             |",
+                "|                      D   R     |",
+                "2 UL     U                  RD   4",
+                "|        D                       |",
+                "|     L        D                 |",
+                "|                   R       L    |",
+                "|                                |",
+                "5----------------10-----------8--+"]
         self.assertEquals(bug_scatter.cockroaches(room), [0, 2, 4, 1, 2, 2, 1, 1, 4, 1])
 
 
