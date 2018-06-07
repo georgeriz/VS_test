@@ -17,6 +17,9 @@ class TestFoo(unittest.TestCase):
     def test_almost_link_but_no(self):
         self.assertEqual(foo("this bug-verification"), [])
 
+    def test_already_link(self):
+        self.assertEqual(foo("click here http://jira.com/bug-58"), ["bug-58"])
+
 class TestBar(unittest.TestCase):
     def test_one_link(self):
         self.assertEqual(bar("this is bug-123"), "Did you mean http://jira.com/bug-123 ?")
