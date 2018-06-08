@@ -1,10 +1,10 @@
 import re
 
 def get_match(msg, pattern):
-    return re.findall(pattern + r'\d+', msg)
+    return re.findall(pattern + r'\d+', msg, re.IGNORECASE)
 
 def get_links(msg):
-    return ["http://jira.com/" + match for match in get_match(msg, "BUG-")]
+    return ["http://jira.com/" + match.upper() for match in get_match(msg, "BUG-")]
 
 def get_links2(msg):
     links = []
