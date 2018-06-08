@@ -1,10 +1,9 @@
 import re
 
-def get_match(msg, pattern):
-    return re.findall(pattern + r'\d+', msg, re.IGNORECASE)
-
 def get_links(msg):
-    return ["http://jira.com/" + match.upper() for match in get_match(msg, "BUG-")]
+    links = ["http://jira.com/" + match.upper() for match in re.findall(r'BUG-\d+', msg, re.IGNORECASE)]
+    links.extend(["goto.com/" + match.upper() for match in re.findall(r'CR(?:-[a-z0-9]{4}){2}', msg, re.IGNORECASE)])
+    return links
 
 def get_links2(msg):
     links = []
