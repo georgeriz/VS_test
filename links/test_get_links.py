@@ -23,5 +23,11 @@ class TestGetLinks(unittest.TestCase):
     def test_link_with_punctuation(self):
         self.assertEqual(get_links("let's close BUG-74!"), ["http://jira.com/BUG-74"])
 
+    def test_lowercase_link(self):
+        self.assertEqual(get_links("please open bug-32"), ["http://jira.com/BUG-32"])
+
+    def test_mixed_case_link(self):
+        self.assertEqual(get_links("what if Bug-8765 didn't exist"), ["http://jira.com/BUG-8765"])
+
 if __name__ == "__main__":
     unittest.main()
