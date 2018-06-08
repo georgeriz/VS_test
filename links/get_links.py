@@ -1,4 +1,12 @@
+import re
+
+def get_match(msg, pattern):
+    return re.findall(pattern + r'\d+', msg)
+
 def get_links(msg):
+    return ["http://jira.com/" + match for match in get_match(msg, "BUG-")]
+
+def get_links2(msg):
     links = []
     for word in msg.split():
         if word.startswith("BUG-"):
