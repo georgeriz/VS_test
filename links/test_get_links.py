@@ -29,5 +29,8 @@ class TestGetLinks(unittest.TestCase):
     def test_mixed_case_link(self):
         self.assertEqual(get_links("what if Bug-8765 didn't exist"), ["http://jira.com/BUG-8765"])
 
+    def test_similar_to_link_but_no(self):
+        self.assertEqual(get_links("please send bug-report today"), [])
+
 if __name__ == "__main__":
     unittest.main()
