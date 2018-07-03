@@ -24,6 +24,8 @@ class Movie(Base):
         self.release_date = release_date
 
 
+# INSERT
+
 # generate database schema
 Base.metadata.create_all(engine)
 # create a new session
@@ -41,3 +43,10 @@ session.add(pain_and_gain)
 
 session.commit()
 session.close()
+
+# QUERY
+
+session = Session()
+movies = session.query(Movie).all()
+for movie in movies:
+    print("{} was released on {}".format(movie.title, movie.release_date))
