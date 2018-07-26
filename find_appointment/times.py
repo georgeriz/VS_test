@@ -22,8 +22,9 @@ def blah(t, d):
 
 def trange(s,f,i):
     while s < f:
-        yield s
-        s += timedelta(minutes=i)
+        m = s + timedelta(minutes=i)
+        yield (s,m)
+        s = m
 
-for i in trange(bar(["09:00"])[0], bar(["11:30"])[0], 10):
+for i in trange(datetime.strptime("09:00", "%H:%M"), datetime.strptime("15:30", "%H:%M"), 30):
     print i
