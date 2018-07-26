@@ -14,8 +14,9 @@ def foo():
 
 
 schedules = [[(10,11),(13,14)],[(9,10)],[(11,15),(16,17),(17,19)]]
-def bar(s=schedules):
-    possible = zip(range(9,19), range(10,20))
+duration = 1
+def bar(s=schedules, d=duration):
+    possible = zip(range(9,18+d), range(9+d,19+d))
     s = [x for l in s for x in l]
     for p in possible:
         if all(p[1] <= t[0] or p[0] >= t[1] for t in s):
