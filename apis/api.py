@@ -40,6 +40,28 @@ class CPIData(object):
 			
 	def load_from_file(self, fp):
 		"""Loads CPI data from a given file-like object."""
+		current_year = None
+		year_cpi = []
+		for line in fp:
+			while not line.startswith("DATE "):
+				pass
+			data = line.rstrip().split()
+			year = int(data[0].split("-")[0])
+			cpi = float(data[1])
+			if self.first_year is None:
+				self.first_year = year
+			self.last_year = year
+			# when we reach a new year, we have to reset the CPI data
+			# calculate average CPI of the current_year
+			if current_year != year:
+				if current_year is not None:
+					self.year_cpi[current_year] = sum(year_cpi) / len(year_cpi)
+				year_cpi = []
+				current_year = year
+			year_cpi.append(cpi)
+			# we have to do the calculation once again for the last year
+			if current_year is not None and current_year not in self.year_cpi:
+				self.year_cpi[current_year] = sum(year_cpi) / len(year_cpi)
 		
 
 	def get_adjusted_price(self, price, year, current_year=None):
