@@ -68,7 +68,23 @@ class CPIData(object):
 		"""Returns the adapted price from a given year compared to what current
 		year has been specified.
 
+		This essentially is the calculated inflation for an item.
+		
 		"""
+		# Currently there is no CPI data for 2019
+		if current_year is None or current_year > 2018:
+			current_year = 2018
+		# If our data range doesn't provide a CPI for the given year, use
+		# the edge data.
+		if year < self.first_year:
+			year = self.first_year
+		elif year > self.last_year:
+			year = self.last_year
+
+		year_cpi = self.year_cpi[year]
+		current_cpi = self.year_cpi[current_year]
+
+		return float(price) / year_cpi * current_cpi
 
 def main():
 	# Grab CPI/Inflation data
