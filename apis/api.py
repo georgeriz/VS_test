@@ -86,6 +86,91 @@ class CPIData(object):
 
 		return float(price) / year_cpi * current_cpi
 
+		
+class GiantbombAPI(object):
+    """
+    Very simple implementation of the Giantbomb API that only offers the
+    GET /platforms/ call as a generator.
+
+    Note that this implementation only exposes of the API what we really need.
+    """
+
+    base_url = 'http://www.giantbomb.com/api'
+
+    def __init__(self, api_key):
+        self.api_key = api_key
+
+	def get_platforms(self, sort=None, filter=None, field_list=None):
+        """Generator yielding platforms matching the given criteria. If no
+        limit is specified, this will return *all* platforms.
+
+        """
+
+        # The API itself allows us to filter the data returned either
+        # by requesting only a subset of data elements or a subset with each
+        # data element (like only the name, the price and the release date).
+        #
+        # The following lines also do value-format conversions from what's
+        # common in Python (lists, dictionaries) into what the API requires.
+        # This is especially apparent with the filter-parameter where we
+        # need to convert a dictionary of criteria into a comma-seperated
+        # list of key:value pairs.
+        params = {}
+        if sort is not None:
+            params['sort'] = sort
+        if field_list is not None:
+            params['field_list'] = ','.join(field_list)
+        if filter is not None:
+            params['filter'] = filter
+            parsed_filters = []
+            for key, value in filter.iteritems():
+                parsed_filters.append('{0}:{1}'.format(key, value))
+            params['filter'] = ','.join(parsed_filters)
+
+        params['api_key'] = self.api_key
+        params['format'] = 'json'
+
+        incomplete_result = True
+        num_total_results = None
+        num_fetched_results = 0
+        counter = 0
+
+        while incomplete_result:
+            # Giantbomb's limit for items in a result set for this API is 100
+            # items. But given that there are more than 100 platforms in their
+            # database we will have to fetch them in more than one call.
+            #
+            # Most APIs that have such limits (and most do) offer a way to
+            # page through result sets using either a "page" or (as is here
+            # the case) an "offset" parameter which allows you to "skip" a
+            # certain number of items.
+            params['offset'] = num_fetched_results
+            result = requests.get(self.base_url + '/platforms/',
+                                  params=params)
+            result = result.json()
+            if num_total_results is None:
+                num_total_results = int(result['number_of_total_results'])
+            num_fetched_results += int(result['number_of_page_results'])
+            if num_fetched_results >= num_total_results:
+                incomplete_result = False
+            for item in result['results']:
+                logging.debug("Yielding platform {0} of {1}".format(
+                    counter + 1,
+                    num_total_results))
+
+                # Since this is supposed to be an abstraction, we also convert
+                # values here into a more useful format where appropriate.
+                if 'original_price' in item and item['original_price']:
+                    item['original_price'] = float(item['original_price'])
+
+                # The "yield" keyword is what makes this a generator.
+                # Implementing this method as generator has the advantage
+                # that we can stop fetching of further data from the server
+                # dynamically from the outside by simply stop iterating over
+                # the generator.
+                yield item
+                counter += 1
+		
 def main():
 	# Grab CPI/Inflation data
 	
