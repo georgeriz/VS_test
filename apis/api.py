@@ -1,5 +1,6 @@
 from __future__ import print_function
 import requests
+import logging
 
 CPI_DATA_URL = 'http://research.stlouisfed.org/fred2/data/CPIAUCSL.txt'
 
