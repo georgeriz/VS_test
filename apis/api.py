@@ -171,6 +171,28 @@ class GiantbombAPI(object):
                 # the generator.
                 yield item
                 counter += 1
+				
+				
+def is_valid_dataset(platform):
+    """Filters out datasets that we can't use since they are either lacking
+    a release date or an original price. For rendering the output we also
+    require the name and abbreviation of the platform.
+
+    """
+    if 'release_date' not in platform or not platform['release_date']:
+        logging.warn(u"{0} has no release date".format(platform['name']))
+        return False
+    if 'original_price' not in platform or not platform['original_price']:
+        logging.warn(u"{0} has no original price".format(platform['name']))
+        return False
+    if 'name' not in platform or not platform['name']:
+        logging.warn(u"No platform name found for given dataset")
+        return False
+    if 'abbreviation' not in platform or not platform['abbreviation']:
+        logging.warn(u"{0} has no abbreviation".format(platform['name']))
+        return False
+    return True
+		
 		
 def main():
 	# Grab CPI/Inflation data
