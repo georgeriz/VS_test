@@ -20,6 +20,6 @@ h2s = [article.find('h2') for article in articles]
 # sometimes the article has no h2 element
 article_titles = [h2.text for h2 in h2s if h2 is not None]
 
-with open("article_list.txt", "w+") as f:
+with open("article_list.txt", "a") as f:
 	for title in article_titles:
-		f.write(title)
+		f.write(title.encode("utf-8")+"\n")
