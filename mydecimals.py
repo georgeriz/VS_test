@@ -10,3 +10,10 @@ a = Decimal('4.2')
 b = Decimal('2.1')
 assert (a + b) == Decimal('6.3')
 # assert (4.2 + 2.1) == 6.3 would fail
+
+from decimal import localcontext
+c = Decimal('1.3')
+d = Decimal('1.7')
+with localcontext() as ctx:
+	ctx.prec = 3
+	assert (c/d) == Decimal('0.765')
