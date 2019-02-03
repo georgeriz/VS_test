@@ -17,3 +17,6 @@ d = Decimal('1.7')
 with localcontext() as ctx:
 	ctx.prec = 3
 	assert (c/d) == Decimal('0.765')
+	
+# the decimal module should be used with financial data
+# it has worse performance than native float numbers
