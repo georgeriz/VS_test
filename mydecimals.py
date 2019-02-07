@@ -20,3 +20,7 @@ with localcontext() as ctx:
 	
 # the decimal module should be used with financial data
 # it has worse performance than native float numbers
+
+x = 1234.5678
+format(x, '>10.2f') # right justified
+format(x, ',') # include thousand separator
