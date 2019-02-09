@@ -9,6 +9,7 @@ import cmath
 
 print(cmath.sqrt(-1)) # 1j
 
+#
 a = float('nan')
 print(math.isnan(a)) # the only way to test for nan
 
