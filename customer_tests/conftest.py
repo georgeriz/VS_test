@@ -17,3 +17,11 @@ def make_customer_record():
 	for record in created_records:
 		# clean up code
 		record.destroy()
+		
+@pytest.fixture
+def customer():
+	return Customer('Maria', [])
+	
+@pytest.fixture
+def customer_repr():
+	return 'Maria'
