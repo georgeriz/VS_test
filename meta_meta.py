@@ -1,9 +1,11 @@
 import time
+from functools import wraps
 
 def timethis(func):
 	'''
 	Decorator that reports the execution timethis
 	'''
+	@wraps(func)
 	def wrapper(*args, **kwargs):
 		start = time.time()
 		result = func(*args, **kwargs)
@@ -21,3 +23,6 @@ def countdown(n):
 		n -= 1
 		
 countdown(100000)
+# The following returns "wrapper" without @wraps(func)
+# and "countdown with @wraps(func)
+print(countdown.__name__) # 
