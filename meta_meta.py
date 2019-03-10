@@ -21,8 +21,15 @@ def countdown(n):
 	'''
 	while n > 0:
 		n -= 1
+
 		
 countdown(100000)
+
 # The following returns "wrapper" without @wraps(func)
 # and "countdown with @wraps(func)
-print(countdown.__name__) # 
+print(countdown.__name__)
+
+# The following will run the original function
+# only works if @wraps(func) has been used
+countdown.__wrapped__(100000)
+
