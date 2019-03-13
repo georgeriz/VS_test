@@ -33,3 +33,29 @@ print(countdown.__name__)
 # only works if @wraps(func) has been used
 countdown.__wrapped__(100000)
 
+# a decorator that takes arguments
+import logging
+
+logging.basicConfig(filename="meta.log", level=logging.DEBUG)
+
+def logged(level, message=None):
+	'''
+	Add logging to function
+	'''
+	def decorate(func):
+		log = logging.getLogger(func.__module__)
+		logmsg = message if message else func.__name__
+		
+		@wraps(func)
+		def wrapper(*args, **kwargs):
+			log.log(level, logmsg)
+			return func(*args, **kwargs)
+		return wrapper
+	return decorate
+
+# example	
+@logged(logging.DEBUG)
+def add(x, y):
+	return x + y
+	
+print(add(2,3))
