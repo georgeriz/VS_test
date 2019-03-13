@@ -36,7 +36,7 @@ countdown.__wrapped__(100000)
 # a decorator that takes arguments
 import logging
 
-logging.basicConfig(filename="meta.log", level=logging.DEBUG)
+logging.basicConfig(level=logging.DEBUG)
 
 def logged(level, message=None):
 	'''
@@ -54,7 +54,7 @@ def logged(level, message=None):
 	return decorate
 
 # example	
-@logged(logging.DEBUG)
+@logged(logging.WARNING)
 def add(x, y):
 	return x + y
 	
