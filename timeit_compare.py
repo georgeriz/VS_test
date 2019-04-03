@@ -9,6 +9,8 @@ def get_items():
         yield i
 
 def transform(n):
+    #return 2*n # no duplicates
+    #return n%100 # many duplicates
     return str(n)
 
 @timeit_decorator
