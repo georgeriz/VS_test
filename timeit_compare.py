@@ -34,3 +34,6 @@ def bar():
 
 foo()
 bar()
+# in general bar performs better, but substantially better
+# when there are many duplicates
+# foo performs slightly better when using the str transform
